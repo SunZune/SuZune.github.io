@@ -62,77 +62,67 @@ Login方法会调用securityM,">
     <div class='main'>
         <h1 class="title">shiro</h1>
         <div class="stuff">
-            <span>五月 19, 2020</span>
+            <span>四月 23, 2020</span>
             
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/java/" rel="tag">java</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/shiro/" rel="tag">shiro</a></li></ul>
+
 
         </div>
         <div class="content markdown">
-            <h3 id="Shiro身份验证"><a href="#Shiro身份验证" class="headerlink" title="Shiro身份验证"></a>Shiro身份验证</h3><p><img src="/2020/05/19/shiro/wps9.jpg" alt="img"> </p>
+            <h3 id="Shiro身份验证"><a href="#Shiro身份验证" class="headerlink" title="Shiro身份验证"></a>Shiro身份验证</h3><p><img src="/2020/04/23/shiro/wps9.jpg" alt="img"> </p>
 <p>将用户名和密码封装成token，调用SecurityUtils.getSubject().login(token);方法,传入token</p>
 <p>Login方法会调用securityManager的login方法传入subject和token</p>
-<p><img src="/2020/05/19/shiro/wps10.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps10.jpg" alt="img"> </p>
 <p>securityManager的login方法，在这个方法中定义了AuthenticationInfo对象来接受从Realm传来的认证信息</p>
-<p><img src="/2020/05/19/shiro/wps11.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps11.jpg" alt="img"> </p>
 <p>创建证明信息对象，调用authenticate(token)方法传入token；</p>
 <p>返回认证者的认证方法</p>
-<p><img src="/2020/05/19/shiro/wps12.jpg" alt="img"> </p>
-<p><img src="/2020/05/19/shiro/wps13.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps12.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps13.jpg" alt="img"> </p>
 <p>在这里才是刚才前边的那个authenticator的实现， this.assertRealmsConfigured() 这个方法是判断realm是否存在，不存在则抛出异常，他会根据realm的个数来判断执行哪个方法，springboot整合shiro我只配置了一个realm，所以他只会执行this.doSingleRealmAuthentication((Realm)realms.iterator().next(), authenticationToken)这个方法，并且会将 realm和token作为参数传入，这里的realm其实就是自己定义的MyShiroRealm</p>
-<p><img src="/2020/05/19/shiro/wps14.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps14.jpg" alt="img"> </p>
 <p>在这里 他会先判断realm是否支持token</p>
 <p>接下来执行else中的getAuthenticationInfo方法</p>
-<p><img src="/2020/05/19/shiro/wps15.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps15.jpg" alt="img"> </p>
 <p>this.getCachedAuthenticationInfo(token)这个方法是从shiro缓存中读取用户信息，如果没有，才从realm中获取信息。如果是第一次登陆，缓存中肯定没有认证信息，所以会执行this.doGetAuthenticationInfo(token)这个方法。</p>
-<p><img src="/2020/05/19/shiro/wps16.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps16.jpg" alt="img"> </p>
 <p>这里可以找到自己定义的realm</p>
 <p>所以 ，上边的doGetAuthorizationInfo是 执行的我们自定义realm中重写的doGetAuthorizationInfo这个方法。这个方法就会从数据库中读取我们所需要的信息，最后封装成SimpleAuthorizationInfo返回去。</p>
-<p><img src="/2020/05/19/shiro/wps17.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps17.jpg" alt="img"> </p>
 <p>再回到getAuthenticationInfo</p>
 <p> 获取 完信息之后就是进行密码匹配,进入assertCredentialsMatch方法中看一下</p>
-<p><img src="/2020/05/19/shiro/wps18.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps18.jpg" alt="img"> </p>
 <p>首先 获取一个CredentialsMatcher对象，译为凭证匹配器，这个类的主要作用就是将用户输入的密码一某种计算加密。</p>
-<p><img src="/2020/05/19/shiro/wps19.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps19.jpg" alt="img"> </p>
 <p>再看一下cm.doCredentialsMatch(token,info)，这里是hash</p>
-<p><img src="/2020/05/19/shiro/wps20.jpg" alt="img"> </p>
-<p><img src="/2020/05/19/shiro/wps21.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps20.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps21.jpg" alt="img"> </p>
 <p>这里会用到equals方法对token中加密的密码和从数据库中取出来的info中的密码进行对比，如果认证相同就返回true，失败就返回false，并抛出AuthenticationException，将info返回到defaultSecurityManager中，到此认证过程结束。</p>
 <h3 id="Shiro授权过程"><a href="#Shiro授权过程" class="headerlink" title="Shiro授权过程"></a>Shiro授权过程</h3><p>1、首先调用subject.hasRole()</p>
 <p>会委托给securityManager来处理，</p>
-<p><img src="/2020/05/19/shiro/wps1.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps1.jpg" alt="img"> </p>
 <p>2、而securityManager内部有一个Authorizer来做真正的授权，默认实现为ModularRealmAuthorizer</p>
-<p><img src="/2020/05/19/shiro/wps2.jpg" alt="img"> </p>
-<p><img src="/2020/05/19/shiro/image-20200519105322330.png" alt="img"></p>
+<p><img src="/2020/04/23/shiro/wps2.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/image-20200519105322330.png" alt="img"></p>
 <p>3、ModularRealmAuthorizer可以根据多个Realm来判断是否拥有相应的角色，其中只要某个Realm匹配，则返回true</p>
-<p><img src="/2020/05/19/shiro/wps4.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps4.jpg" alt="img"> </p>
 <p>4、AuthorizingRealm对于判断hasRole的逻辑很简单</p>
 <p>判断授权信息(info)和角色(role)是否为空</p>
 <p>判断授权信息(info)是否包含传入的角色字符串(roleIdentifier)</p>
-<p><img src="/2020/05/19/shiro/wps5.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps5.jpg" alt="img"> </p>
 <p>对于subject.isPermitted(…)会复杂一点</p>
 <p>前三步相同，判断isPermitted的逻辑不一样</p>
 <p>例如调用isPermitted(“user:view”)，首先通过PermissionResolver将权限字符串转换成相应的Permission实例，默认使用WildcardPermissionResolver，即转换为通配符的WildcardPermission；</p>
-<p><img src="/2020/05/19/shiro/wps6.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps6.jpg" alt="img"> </p>
 <p>通过AuthorizationInfo.getObjectPermissions()得到Permission实例集合；通过AuthorizationInfo. getStringPermissions()得到字符串集合并通过PermissionResolver解析为Permission实例；然后获取用户的角色，并通过RolePermissionResolver解析角色对应的权限集合（默认没有实现，可以自己提供）；</p>
-<p><img src="/2020/05/19/shiro/wps7.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps7.jpg" alt="img"> </p>
 <p>接着调用Permission. implies(Permission p)逐个与传入的权限比较，如果有匹配的则返回true，否则false。</p>
-<p><img src="/2020/05/19/shiro/wps8.jpg" alt="img"> </p>
+<p><img src="/2020/04/23/shiro/wps8.jpg" alt="img"> </p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
-                <source type="audio/mpeg" src="">
+                <source type="audio/mpeg" src="http://ip.h5.rg01.sycdn.kuwo.cn/dce60e9be079ec3f8966c7fd06bd860f/5ec8b19f/resource/n1/31/68/2210081969.mp3">
             </audio>
-            
-                <ul id="audio-list" style="display:none">
-                    
-                        
-                            <li title='0' data-url='http://isure.stream.qqmusic.qq.com/C400004MLATM1vFwgh.m4a?guid=762891723&vkey=BAE54ABCE838F06E22BA2C815F14328837BC0A6EC6569009FBFBF7DE433BB0453690C5C5F2264854F2E628A1CFA5AE77D59513853004D431&uin=0&fromtag=66'></li>
-                        
-                    
-                        
-                            <li title='1' data-url='http://ip.h5.nf01.sycdn.kuwo.cn/2f38f527374ee0bd2c70f7f2ba146a1a/5ec89ac0/resource/n2/5/63/3934434272.mp3'></li>
-                        
-                    
-                </ul>
             
         </div>
         
