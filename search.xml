@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>ceshi</title>
-    <url>/2020/04/23/ceshi/</url>
+    <url>/SuZune.github.io/2020/04/23/ceshi/</url>
     <content><![CDATA[<p><img src="/2020/04/23/ceshi/1.jpg" alt="1"></p>
 <img src="/2020/04/23/ceshi/1.jpg" class title="This is an example image">
 ]]></content>
@@ -12,7 +12,7 @@
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/2019/01/21/hello-world/</url>
+    <url>/SuZune.github.io/2019/01/21/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
@@ -30,7 +30,7 @@
   </entry>
   <entry>
     <title>shiro</title>
-    <url>/2020/04/23/shiro/</url>
+    <url>/SuZune.github.io/2020/04/23/shiro/</url>
     <content><![CDATA[<h3 id="Shiro身份验证"><a href="#Shiro身份验证" class="headerlink" title="Shiro身份验证"></a>Shiro身份验证</h3><p><img src="/2020/04/23/shiro/wps9.jpg" alt="img"> </p>
 <p>将用户名和密码封装成token，调用SecurityUtils.getSubject().login(token);方法,传入token</p>
 <p>Login方法会调用securityManager的login方法传入subject和token</p>
@@ -88,7 +88,7 @@
   </entry>
   <entry>
     <title>hellWorld</title>
-    <url>/2019/01/27/hellWorld/</url>
+    <url>/SuZune.github.io/2019/01/27/hellWorld/</url>
     <content><![CDATA[<h1 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h1><h2 id="第一天"><a href="#第一天" class="headerlink" title="第一天"></a>第一天</h2><h4 id="1、简单说说线程的几种状态-以及线程的阻塞的方式"><a href="#1、简单说说线程的几种状态-以及线程的阻塞的方式" class="headerlink" title="1、简单说说线程的几种状态 以及线程的阻塞的方式"></a>1、简单说说线程的几种状态 以及线程的阻塞的方式</h4><p>早期的进程状态，也就是单线程进程的状态。有五种</p>
 <p>（1）新建状态：即单纯地创建一个线程，创建线程有三种方式</p>
 <p>​    继承Thread类创建线程</p>
